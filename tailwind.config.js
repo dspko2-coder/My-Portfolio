@@ -21,6 +21,7 @@ export default {
         },
       },
       fontFamily: {
+        sans: ['"Poppins"', '"Inter"', "sans-serif"],
         display: ['"Sora"', "sans-serif"],
         body: ['"Inter"', "sans-serif"],
         mono: ['"JetBrains Mono"', "monospace"],

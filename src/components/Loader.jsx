@@ -1,108 +1,87 @@
 import { useEffect, useState } from "react";
 
-const LETTERS = ["L", "O", "A", "D", "I", "N", "G"];
+const LETTERS = "LOADING".split("");
+const CURVE = "12vh"; // height of the curved lip under the black layer
 
-// Show loader for at least 2 full wave cycles before exiting
-const MIN_VISIBLE_MS = 2500;
-const EXIT_MS = 1000;
+const Loader = ({ duration = 3400, text = LETTERS }) => {
+  const [phase, setPhase] = useState("loading");
+  const letters = Array.isArray(text) ? text : String(text).split("");
 
-const Loader = () => {
-  const [mounted, setMounted] = useState(true);
-  const [exiting, setExiting] = useState(false);
-
+  // Start the exit after `duration`
   useEffect(() => {
+    const t = setTimeout(() => setPhase("exiting"), duration);
+    return () => clearTimeout(t);
+  }, [duration]);
+
+  // Lock page scroll while the loader is on screen
+  useEffect(() => {
+    if (phase === "done") return;
+    const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-
-    const exitTimer = setTimeout(() => setExiting(true), MIN_VISIBLE_MS);
-    const removeTimer = setTimeout(() => {
-      setMounted(false);
-      document.body.style.overflow = "";
-    }, MIN_VISIBLE_MS + EXIT_MS);
-
     return () => {
-      clearTimeout(exitTimer);
-      clearTimeout(removeTimer);
-      document.body.style.overflow = "";
+      document.body.style.overflow = prev;
     };
-  }, []);
+  }, [phase]);
 
-  if (!mounted) return null;
+  if (phase === "done") return null;
 
   return (
-    <div
-      role="presentation"
-      aria-hidden="true"
-      className="no-reduce-motion fixed inset-0 z-[100] flex items-center justify-center overflow-hidden"
-      style={{
-        // Deep pure dark background (consistent in light & dark modes)
-        backgroundColor: "#080808",
-        // Dorbesh-style smooth curtain slide-up with curved lower edge
-        transform: exiting ? "translateY(-105%)" : "translateY(0%)",
-        borderRadius: exiting ? "0 0 50% 50% / 0 0 160px 160px" : "0 0 0 0",
-        transition: exiting
-          ? "transform 0.95s cubic-bezier(0.77, 0, 0.175, 1), border-radius 0.95s cubic-bezier(0.77, 0, 0.175, 1)"
-          : "none",
-        willChange: "transform, border-radius",
-      }}
-    >
-      {/* Guarantees sharp smooth animation execution without any external dependencies */}
+    <>
       <style>{`
-        @keyframes sharpSmoothWave {
-          0% {
-            color: rgba(255, 255, 255, 0.18);
-          }
-          6% {
-            color: #ffffff;
-          }
-          14% {
-            color: #ffffff;
-          }
-          22% {
-            color: rgba(255, 255, 255, 0.52);
-          }
-          32% {
-            color: rgba(255, 255, 255, 0.18);
-          }
-          100% {
-            color: rgba(255, 255, 255, 0.18);
-          }
-        }
-        .letter-sweep-item {
-          display: inline-block;
-          color: rgba(255, 255, 255, 0.18);
-          animation: sharpSmoothWave 2.1s cubic-bezier(0.4, 0, 0.2, 1) infinite both !important;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          text-rendering: optimizeLegibility;
+        @keyframes loader-letter {
+          0%, 100% { opacity: 1; }
+          50%      { opacity: 0.04; }
         }
       `}</style>
 
-      {/* Centered L O A D I N G word with sharp smooth wave sequence */}
       <div
-        className="flex items-center select-none"
+        role="status"
+        aria-label="Loading"
+        onTransitionEnd={(e) => {
+          if (e.target === e.currentTarget && phase === "exiting") setPhase("done");
+        }}
+        className="fixed inset-0 z-[9999] flex items-center justify-center bg-black
+                   transition-transform duration-[1100ms] ease-[cubic-bezier(0.76,0,0.24,1)]"
         style={{
-          gap: "clamp(1rem, 2.8vw, 2.1rem)",
-          opacity: exiting ? 0 : 1,
-          transform: exiting ? "scale(0.94)" : "scale(1)",
-          transition: "opacity 0.35s ease, transform 0.45s ease",
+          transform:
+            phase === "exiting" ? `translateY(calc(-100% - ${CURVE}))` : "translateY(0)",
         }}
       >
-        {LETTERS.map((letter, i) => (
-          <span
-            key={`${letter}-${i}`}
-            className="font-display font-bold letter-sweep-item"
-            style={{
-              fontSize: "clamp(1.4rem, 3.4vw, 2.1rem)",
-              letterSpacing: "0.22em",
-              animationDelay: `${i * 0.18}s`,
-            }}
-          >
-            {letter}
-          </span>
-        ))}
+        {/* Letters */}
+        <div
+          className={`flex gap-6 text-sm font-light uppercase text-white
+                      transition-opacity duration-300 ${
+                        phase === "exiting" ? "opacity-0" : "opacity-100"
+                      }`}
+        >
+          {letters.map((char, i) => (
+            <span
+              key={i}
+              className="inline-block"
+              style={{
+                animation: "loader-letter 2.4s ease-in-out infinite",
+                animationDelay: `${i * 0.1}s`,
+              }}
+            >
+              {char}
+            </span>
+          ))}
+        </div>
+
+        {/* Curved lip: sides hang lower than the centre, so the page appears
+            to be revealed through a rounded arch as the layer lifts */}
+        <svg
+          aria-hidden="true"
+          className="absolute left-0 top-full w-full"
+          style={{ height: CURVE }}
+          viewBox="0 0 100 10"
+          preserveAspectRatio="none"
+        >
+          <path d="M0 0 H100 V10 Q50 -10 0 10 Z" fill="black" />
+        </svg>
       </div>
-    </div>
+    </>
   );
-};
+}
 
 export default Loader;
