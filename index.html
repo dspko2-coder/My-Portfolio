@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dilekha Palihawadana | Full Stack Developer</title>
+    <meta
+      name="description"
+      content="Portfolio of Dilekha Palihawadana, a Full Stack Developer based in Matara, Sri Lanka."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      // Applied before paint so the persisted theme never flashes the wrong
+      // one. Reads the value redux-persist stored under "persist:root".
+      (function () {
+        try {
+          var mode = "system";
+          var raw = localStorage.getItem("persist:root");
+          if (raw) {
+            var theme = JSON.parse(JSON.parse(raw).theme);
+            if (theme && theme.mode) mode = theme.mode;
+          }
+          var isDark =
+            mode === "dark" ||
+            (mode !== "light" &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches);
+          document.documentElement.classList.toggle("dark", isDark);
+        } catch (e) {
+          /* storage unavailable — fall back to the default styles */
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/My-Portfolio/assets/index-CGMAQ73l.js"></script>
+    <link rel="stylesheet" crossorigin href="/My-Portfolio/assets/index-B7sEMjgR.css">
+  </head>
+  <body class="bg-canvas text-ink font-body antialiased">
+    <div id="root"></div>
+  </body>
+</html>
