@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ThemeSync from "./components/ThemeSync";
 import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
@@ -19,9 +19,15 @@ const Home = () => (
   </>
 );
 
+const repoPath = "/My-Portfolio";
+const isRepoPath =
+  typeof window !== "undefined" &&
+  window.location.pathname.toLowerCase().startsWith(repoPath.toLowerCase());
+const basename = isRepoPath ? repoPath : import.meta.env.BASE_URL || "/";
+
 const App = () => {
   return (
-    <Router>
+    <BrowserRouter basename={basename}>
       <ThemeSync />
       <Loader />
       <div className="relative min-h-screen bg-canvas text-ink antialiased selection:bg-accent selection:text-accent-contrast">
@@ -39,17 +45,28 @@ const App = () => {
           <Navbar />
           <main>
             <Routes>
+              {/* Primary Routes */}
               <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/projects" element={<Projects />} />
               <Route path="/contact" element={<Contact />} />
+
+              {/* GitHub Pages subpath fallback routes */}
+              <Route path="/My-Portfolio" element={<Home />} />
+              <Route path="/My-Portfolio/home" element={<Home />} />
+              <Route path="/My-Portfolio/about" element={<About />} />
+              <Route path="/My-Portfolio/projects" element={<Projects />} />
+              <Route path="/My-Portfolio/contact" element={<Contact />} />
+
+              {/* Catch-all fallback route */}
               <Route path="*" element={<Home />} />
             </Routes>
           </main>
           <Footer />
         </div>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 };
 
