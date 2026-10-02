@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ThemeSync from "./components/ThemeSync";
 import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
@@ -8,9 +9,19 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
+const Home = () => (
+  <>
+    <Hero />
+    <TechMarquee />
+    <About />
+    <Projects />
+    <Contact />
+  </>
+);
+
 const App = () => {
   return (
-    <>
+    <Router>
       <ThemeSync />
       <Loader />
       <div className="relative min-h-screen bg-canvas text-ink antialiased selection:bg-accent selection:text-accent-contrast">
@@ -27,16 +38,18 @@ const App = () => {
         <div className="relative z-10">
           <Navbar />
           <main>
-            <Hero />
-            <TechMarquee />
-            <About />
-            <Projects />
-            <Contact />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="*" element={<Home />} />
+            </Routes>
           </main>
           <Footer />
         </div>
       </div>
-    </>
+    </Router>
   );
 };
 
