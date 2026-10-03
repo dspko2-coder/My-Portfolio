@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import ThemeSync from "./components/ThemeSync";
 import Loader from "./components/Loader";
 import Navbar from "./components/Navbar";
@@ -8,9 +10,39 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
+const Home = () => (
+  <>
+    <Hero />
+    <TechMarquee />
+    <About />
+    <Projects />
+    <Contact />
+  </>
+);
+
+const ScrollToTop = () => {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const element = document.getElementById(hash.replace("#", ""));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [pathname, hash]);
+
+  return null;
+};
+
+const basename = import.meta.env.BASE_URL || "/";
+
 const App = () => {
   return (
-    <>
+    <BrowserRouter basename={basename}>
+      <ScrollToTop />
       <ThemeSync />
       <Loader />
       <div className="relative min-h-screen bg-canvas text-ink antialiased selection:bg-accent selection:text-accent-contrast">
@@ -27,16 +59,19 @@ const App = () => {
         <div className="relative z-10">
           <Navbar />
           <main>
-            <Hero />
-            <TechMarquee />
-            <About />
-            <Projects />
-            <Contact />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="*" element={<Home />} />
+            </Routes>
           </main>
           <Footer />
         </div>
       </div>
-    </>
+    </BrowserRouter>
   );
 };
 
