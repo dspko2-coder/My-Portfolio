@@ -17,7 +17,7 @@ const SOCIAL_ICONS = {
 };
 
 const Contact = () => {
-  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const [status, setStatus] = useState("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
   const formik = useFormik({
