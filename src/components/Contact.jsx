@@ -66,7 +66,17 @@ const Contact = () => {
           body: JSON.stringify(payload),
         });
 
-        const data = await response.json();
+        let data = {};
+        try {
+          data = await response.json();
+        } catch (parseErr) {
+          console.error("Failed to parse server response:", parseErr);
+          setStatus("error");
+          setErrorMessage(
+            `Unexpected response from server (HTTP ${response.status}). Please try again later.`
+          );
+          return;
+        }
 
         if (response.ok && data.success) {
           setStatus("sent");
@@ -75,7 +85,8 @@ const Contact = () => {
         } else {
           setStatus("error");
           setErrorMessage(
-            data.message || "Failed to send message. Please try again."
+            data.message ||
+              `Failed to send message (Error ${response.status}). Please try again.`
           );
         }
       } catch (err) {
