@@ -26,18 +26,44 @@ const Contact = () => {
       email: "",
       subject: "",
       message: "",
+      botcheck: false,
     },
     validationSchema: contactValidationSchema,
     onSubmit: async (values, { resetForm }) => {
       setStatus("sending");
       setErrorMessage("");
 
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+
+      if (!accessKey || accessKey === "YOUR_WEB3FORMS_ACCESS_KEY") {
+        setStatus("error");
+        setErrorMessage(
+          "Web3Forms access key is missing. Please set VITE_WEB3FORMS_ACCESS_KEY in your .env file."
+        );
+        return;
+      }
+
       try {
-        const apiBaseUrl = import.meta.env.VITE_API_URL;
-        const response = await fetch(`${apiBaseUrl}/api/contact`, {
+        const payload = {
+          access_key: accessKey,
+          name: values.name.trim(),
+          email: values.email.trim(),
+          subject: values.subject.trim(),
+          message: values.message.trim(),
+          from_name: values.name.trim(),
+        };
+
+        if (values.botcheck) {
+          payload.botcheck = values.botcheck;
+        }
+
+        const response = await fetch("https://api.web3forms.com/submit", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(values),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(payload),
         });
 
         const data = await response.json();
@@ -56,7 +82,7 @@ const Contact = () => {
         console.error("Error submitting contact form:", err);
         setStatus("error");
         setErrorMessage(
-          "Could not connect to the email backend. Please make sure the backend server is running."
+          "Could not send your message. Please check your network connection and try again."
         );
       }
     },
@@ -165,6 +191,16 @@ const Contact = () => {
             noValidate
             className="card space-y-5 p-6 sm:p-8 lg:col-span-3"
           >
+            <input
+              type="checkbox"
+              name="botcheck"
+              className="hidden"
+              style={{ display: "none" }}
+              checked={formik.values.botcheck}
+              onChange={formik.handleChange}
+              tabIndex={-1}
+              autoComplete="off"
+            />
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div>
                 <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-ink">

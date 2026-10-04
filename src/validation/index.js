@@ -9,10 +9,12 @@ export const contactValidationSchema = Yup.object().shape({
     .email("Please enter a valid email.")
     .required("Please enter your email."),
   subject: Yup.string()
-    .trim(),
+    .trim()
+    .required("Please enter a subject."),
   message: Yup.string()
     .trim()
     .required("Please add a short message."),
+  botcheck: Yup.boolean().optional(),
 });
 
 export default {
