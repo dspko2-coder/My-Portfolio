@@ -1,16 +1,16 @@
-import { IoBriefcaseOutline, IoSchoolOutline } from "react-icons/io5";
-import { education, experience, skills } from "../data/portfolioData";
-import { getTechIcon } from "../data/techIcons";
-import Reveal from "./Reveal";
+import { IoBriefcaseOutline, IoSchoolOutline } from 'react-icons/io5';
+import { education, experience, skills } from '../data/portfolioData';
+import { getTechIcon } from '../data/techIcons';
+import Reveal from './Reveal';
 
 const SKILL_GROUPS = [
-  { title: "Languages", items: skills.languages },
-  { title: "Frontend", items: skills.frontend },
-  { title: "Backend & APIs", items: skills.backend },
-  { title: "Databases", items: skills.databases },
-  { title: "Mobile", items: skills.mobile },
-  { title: "Cloud & DevOps", items: skills.cloud },
-  { title: "Tools", items: skills.tools },
+  { title: 'Languages', items: skills.languages },
+  { title: 'Frontend', items: skills.frontend },
+  { title: 'Backend & APIs', items: skills.backend },
+  { title: 'Databases', items: skills.databases },
+  { title: 'Mobile Development', items: skills.mobile },
+  { title: 'Cloud & DevOps', items: skills.cloud },
+  { title: 'Tools', items: skills.tools },
 ];
 
 const About = () => {
@@ -32,7 +32,10 @@ const About = () => {
             </h3>
             <ol className="mt-6 divide-y divide-line">
               {experience.map((job) => (
-                <li key={job.id} className="flex gap-4 py-5 first:pt-0 last:pb-0">
+                <li
+                  key={job.id}
+                  className="flex gap-4 py-5 first:pt-0 last:pb-0"
+                >
                   <span className="icon-chip">
                     <IoBriefcaseOutline size={20} />
                   </span>
@@ -83,7 +86,10 @@ const About = () => {
             </h3>
             <ol className="mt-6 divide-y divide-line">
               {education.map((edu) => (
-                <li key={edu.id} className="flex gap-4 py-5 first:pt-0 last:pb-0">
+                <li
+                  key={edu.id}
+                  className="flex gap-4 py-5 first:pt-0 last:pb-0"
+                >
                   <span className="icon-chip">
                     <IoSchoolOutline size={20} />
                   </span>

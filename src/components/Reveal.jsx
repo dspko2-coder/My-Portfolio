@@ -1,9 +1,9 @@
-import useInView from "../hooks/useInView";
+import useInView from '../hooks/useInView';
 
 const Reveal = ({
-  as: Tag = "div",
+  as: Tag = 'div',
   delay = 0,
-  className = "",
+  className = '',
   children,
   ...rest
 }) => {
@@ -12,8 +12,8 @@ const Reveal = ({
   return (
     <Tag
       ref={ref}
-      className={`reveal ${inView ? "is-visible" : ""} ${className}`}
-      style={{ transitionDelay: inView ? `${delay}ms` : "0ms" }}
+      className={`reveal ${inView ? 'is-visible' : ''} ${className}`}
+      style={{ transitionDelay: inView ? `${delay}ms` : '0ms' }}
       {...rest}
     >
       {children}

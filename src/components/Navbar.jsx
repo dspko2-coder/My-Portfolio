@@ -1,29 +1,29 @@
-import { useEffect, useState } from "react";
-import { FiMenu, FiX } from "react-icons/fi";
-import { profile } from "../data/portfolioData";
-import ThemeDropdown from "./ThemeDropdown";
+import { useEffect, useState } from 'react';
+import { FiMenu, FiX } from 'react-icons/fi';
+import { profile } from '../data/portfolioData';
+import ThemeDropdown from './ThemeDropdown';
 
 const NAV_LINKS = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
+  { label: 'Home', href: '#home' },
+  { label: 'About', href: '#about' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeId, setActiveId] = useState("home");
+  const [activeId, setActiveId] = useState('home');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => {
     const sections = NAV_LINKS.map((link) =>
-      document.getElementById(link.href.slice(1))
+      document.getElementById(link.href.slice(1)),
     ).filter(Boolean);
 
     if (sections.length === 0) return undefined;
@@ -36,7 +36,7 @@ const Navbar = () => {
           }
         });
       },
-      { rootMargin: "-40% 0px -50% 0px", threshold: 0 }
+      { rootMargin: '-40% 0px -50% 0px', threshold: 0 },
     );
 
     sections.forEach((section) => observer.observe(section));
@@ -45,15 +45,15 @@ const Navbar = () => {
 
   const handleLinkClick = () => setIsOpen(false);
 
-  const nameParts = profile.name.trim().split(" ");
+  const nameParts = profile.name.trim().split(' ');
   const logoLabel = nameParts[0] || profile.name;
 
   return (
     <header
       className={`sticky top-0 z-50 transition-all duration-500 ease-calm ${
         scrolled
-          ? "border-b border-line bg-canvas/80 backdrop-blur-xl shadow-soft"
-          : "border-b border-transparent bg-canvas/40 backdrop-blur-sm"
+          ? 'border-b border-line bg-canvas/80 backdrop-blur-xl shadow-soft'
+          : 'border-b border-transparent bg-canvas/40 backdrop-blur-sm'
       }`}
     >
       <nav
@@ -66,7 +66,7 @@ const Navbar = () => {
         >
           {logoLabel}
           <span className="text-accent">.</span>
-          {"dev"}
+          {'dev'}
         </a>
 
         {/* Desktop nav */}
@@ -77,7 +77,7 @@ const Navbar = () => {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className={`nav-link ${active ? "is-active" : ""}`}
+                  className={`nav-link ${active ? 'is-active' : ''}`}
                 >
                   <span className="nav-dot" aria-hidden="true" />
                   {link.label}
@@ -99,7 +99,7 @@ const Navbar = () => {
             className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-soft text-ink"
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
-            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
             onClick={() => setIsOpen((prev) => !prev)}
           >
             {isOpen ? <FiX size={18} /> : <FiMenu size={18} />}
@@ -121,7 +121,7 @@ const Navbar = () => {
                   <a
                     href={link.href}
                     onClick={handleLinkClick}
-                    className={`nav-link text-base ${active ? "is-active" : ""}`}
+                    className={`nav-link text-base ${active ? 'is-active' : ''}`}
                   >
                     <span className="nav-dot" aria-hidden="true" />
                     {link.label}

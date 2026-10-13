@@ -17,7 +17,16 @@ const Avatar = ({ initials = 'DP' }) => {
         </linearGradient>
       </defs>
       <rect width="400" height="400" rx="24" fill="url(#avatarBg)" />
-      <circle cx="200" cy="200" r="150" fill="none" stroke="url(#avatarRing)" strokeWidth="2" strokeDasharray="4 8" opacity="0.5" />
+      <circle
+        cx="200"
+        cy="200"
+        r="150"
+        fill="none"
+        stroke="url(#avatarRing)"
+        strokeWidth="2"
+        strokeDasharray="4 8"
+        opacity="0.5"
+      />
       <text
         x="200"
         y="222"
@@ -41,7 +50,7 @@ const Avatar = ({ initials = 'DP' }) => {
         &lt;photo pending /&gt;
       </text>
     </svg>
-  )
+  );
 };
 
 export default Avatar;

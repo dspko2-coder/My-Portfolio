@@ -1,15 +1,21 @@
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { FiSun, FiMoon, FiMonitor, FiChevronDown, FiCheck } from "react-icons/fi";
-import { selectThemeMode, setTheme } from "../store/themeSlice";
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  FiSun,
+  FiMoon,
+  FiMonitor,
+  FiChevronDown,
+  FiCheck,
+} from 'react-icons/fi';
+import { selectThemeMode, setTheme } from '../store/themeSlice';
 
 const OPTIONS = [
-  { value: "light", label: "Light", Icon: FiSun },
-  { value: "dark", label: "Dark", Icon: FiMoon },
-  { value: "system", label: "System", Icon: FiMonitor },
+  { value: 'light', label: 'Light', Icon: FiSun },
+  { value: 'dark', label: 'Dark', Icon: FiMoon },
+  { value: 'system', label: 'System', Icon: FiMonitor },
 ];
 
-const ThemeDropdown = ({ className = "" }) => {
+const ThemeDropdown = ({ className = '' }) => {
   const dispatch = useDispatch();
   const mode = useSelector(selectThemeMode);
   const [open, setOpen] = useState(false);
@@ -21,16 +27,17 @@ const ThemeDropdown = ({ className = "" }) => {
   useEffect(() => {
     if (!open) return undefined;
     const onPointerDown = (e) => {
-      if (rootRef.current && !rootRef.current.contains(e.target)) setOpen(false);
+      if (rootRef.current && !rootRef.current.contains(e.target))
+        setOpen(false);
     };
     const onKeyDown = (e) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === 'Escape') setOpen(false);
     };
-    document.addEventListener("mousedown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener('mousedown', onPointerDown);
+    document.addEventListener('keydown', onKeyDown);
     return () => {
-      document.removeEventListener("mousedown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener('mousedown', onPointerDown);
+      document.removeEventListener('keydown', onKeyDown);
     };
   }, [open]);
 
@@ -55,7 +62,7 @@ const ThemeDropdown = ({ className = "" }) => {
           size={14}
           aria-hidden="true"
           className={`text-mist transition-transform duration-300 ease-calm ${
-            open ? "rotate-180" : ""
+            open ? 'rotate-180' : ''
           }`}
         />
       </button>
@@ -75,8 +82,8 @@ const ThemeDropdown = ({ className = "" }) => {
                   onClick={() => select(value)}
                   className={`flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left text-sm transition-colors duration-200 ${
                     selected
-                      ? "bg-accent-soft text-accent"
-                      : "text-mist hover:bg-soft hover:text-ink"
+                      ? 'bg-accent-soft text-accent'
+                      : 'text-mist hover:bg-soft hover:text-ink'
                   }`}
                 >
                   <Icon size={15} aria-hidden="true" />

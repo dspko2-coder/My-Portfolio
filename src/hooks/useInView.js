@@ -1,20 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
-const useInView = ({ threshold = 0, rootMargin = "0px 0px -5% 0px" } = {}) => {
+const useInView = ({ threshold = 0, rootMargin = '0px 0px -5% 0px' } = {}) => {
   const ref = useRef(null);
-  const [inView, setInView] = useState(false);
+  const [inView, setInView] = useState(() => {
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+    return false;
+  });
 
   useEffect(() => {
+    if (inView) return undefined;
     const node = ref.current;
     if (!node) return undefined;
-
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    if (prefersReduced) {
-      setInView(true);
-      return undefined;
-    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -23,12 +21,12 @@ const useInView = ({ threshold = 0, rootMargin = "0px 0px -5% 0px" } = {}) => {
           observer.disconnect();
         }
       },
-      { threshold, rootMargin }
+      { threshold, rootMargin },
     );
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, [threshold, rootMargin]);
+  }, [threshold, rootMargin, inView]);
 
   return [ref, inView];
 };

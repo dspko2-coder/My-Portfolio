@@ -1,7 +1,7 @@
-import { skills } from "../data/portfolioData";
-import { getTechIcon } from "../data/techIcons";
-import Marquee from "./Marquee";
-import Reveal from "./Reveal";
+import { skills } from '../data/portfolioData';
+import { getTechIcon } from '../data/techIcons';
+import Marquee from './Marquee';
+import Reveal from './Reveal';
 
 const ALL_SKILLS = [
   ...skills.languages,
@@ -15,7 +15,7 @@ const ALL_SKILLS = [
 
 // De-duplicate while preserving first-seen order.
 const UNIQUE_SKILLS = ALL_SKILLS.filter(
-  (item, index) => ALL_SKILLS.indexOf(item) === index
+  (item, index) => ALL_SKILLS.indexOf(item) === index,
 );
 
 const TechMarquee = () => {

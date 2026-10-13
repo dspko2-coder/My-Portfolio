@@ -1,15 +1,14 @@
-import { useState } from "react";
-import { useFormik } from "formik";
+import { useState } from 'react';
+import { useFormik } from 'formik';
+import { FiSend, FiGithub, FiLinkedin, FiArrowUpRight } from 'react-icons/fi';
 import {
-  FiSend,
-  FiGithub,
-  FiLinkedin,
-  FiArrowUpRight,
-} from "react-icons/fi";
-import { IoLocationOutline, IoMailOutline, IoTimeOutline } from "react-icons/io5";
-import { profile, contactCopy } from "../data/portfolioData";
-import { contactValidationSchema } from "../validation";
-import Reveal from "./Reveal";
+  IoLocationOutline,
+  IoMailOutline,
+  IoTimeOutline,
+} from 'react-icons/io5';
+import { profile, contactCopy } from '../data/portfolioData';
+import { contactValidationSchema } from '../validation';
+import Reveal from './Reveal';
 
 const SOCIAL_ICONS = {
   github: FiGithub,
@@ -17,28 +16,28 @@ const SOCIAL_ICONS = {
 };
 
 const Contact = () => {
-  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
-  const [errorMessage, setErrorMessage] = useState("");
+  const [status, setStatus] = useState('idle'); // idle | sending | sent | error
+  const [errorMessage, setErrorMessage] = useState('');
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
+      name: '',
+      email: '',
+      subject: '',
+      message: '',
       botcheck: false,
     },
     validationSchema: contactValidationSchema,
     onSubmit: async (values, { resetForm }) => {
-      setStatus("sending");
-      setErrorMessage("");
+      setStatus('sending');
+      setErrorMessage('');
 
       const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
-      if (!accessKey || accessKey === "YOUR_WEB3FORMS_ACCESS_KEY") {
-        setStatus("error");
+      if (!accessKey || accessKey === 'YOUR_WEB3FORMS_ACCESS_KEY') {
+        setStatus('error');
         setErrorMessage(
-          "Web3Forms access key is missing. Please set VITE_WEB3FORMS_ACCESS_KEY in your .env file."
+          'Web3Forms access key is missing. Please set VITE_WEB3FORMS_ACCESS_KEY in your .env file.',
         );
         return;
       }
@@ -57,11 +56,11 @@ const Contact = () => {
           payload.botcheck = values.botcheck;
         }
 
-        const response = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
           },
           body: JSON.stringify(payload),
         });
@@ -70,48 +69,52 @@ const Contact = () => {
         try {
           data = await response.json();
         } catch (parseErr) {
-          console.error("Failed to parse server response:", parseErr);
-          setStatus("error");
+          console.error('Failed to parse server response:', parseErr);
+          setStatus('error');
           setErrorMessage(
-            `Unexpected response from server (HTTP ${response.status}). Please try again later.`
+            `Unexpected response from server (HTTP ${response.status}). Please try again later.`,
           );
           return;
         }
 
         if (response.ok && data.success) {
-          setStatus("sent");
+          setStatus('sent');
           resetForm();
-          setTimeout(() => setStatus("idle"), 5000);
+          setTimeout(() => setStatus('idle'), 5000);
         } else {
-          setStatus("error");
+          setStatus('error');
           setErrorMessage(
             data.message ||
-              `Failed to send message (Error ${response.status}). Please try again.`
+              `Failed to send message (Error ${response.status}). Please try again.`,
           );
         }
       } catch (err) {
-        console.error("Error submitting contact form:", err);
-        setStatus("error");
+        console.error('Error submitting contact form:', err);
+        setStatus('error');
         setErrorMessage(
-          "Could not send your message. Please check your network connection and try again."
+          'Could not send your message. Please check your network connection and try again.',
         );
       }
     },
   });
 
   const socialEntries = Object.entries(profile.social || {}).filter(
-    ([, href]) => Boolean(href)
+    ([, href]) => Boolean(href),
   );
 
-  const getFieldClass = (fieldName, extraClasses = "") => {
+  const getFieldClass = (fieldName, extraClasses = '') => {
     const isError = Boolean(
-      formik.touched[fieldName] && formik.errors[fieldName]
+      formik.touched[fieldName] && formik.errors[fieldName],
     );
-    return `field ${isError ? "field-error" : ""} ${extraClasses}`.trim();
+    return `field ${isError ? 'field-error' : ''} ${extraClasses}`.trim();
   };
 
   return (
-    <section id="contact" aria-labelledby="contact-heading" className="px-6 py-16">
+    <section
+      id="contact"
+      aria-labelledby="contact-heading"
+      className="px-6 py-16"
+    >
       <div className="mx-auto max-w-6xl">
         <Reveal className="text-center">
           <p className="eyebrow">contact</p>
@@ -146,8 +149,8 @@ const Contact = () => {
                 </p>
                 <p className="mt-0.5 text-sm text-mist">
                   {profile.availableForWork
-                    ? "Open to full-stack roles & freelance work"
-                    : "Not currently taking new work"}
+                    ? 'Open to full-stack roles & freelance work'
+                    : 'Not currently taking new work'}
                 </p>
               </div>
             </div>
@@ -157,9 +160,7 @@ const Contact = () => {
                 <IoMailOutline size={20} />
               </span>
               <div className="min-w-0">
-                <p className="font-display text-sm font-bold text-ink">
-                  Email
-                </p>
+                <p className="font-display text-sm font-bold text-ink">Email</p>
                 <a
                   href={`mailto:${profile.email}`}
                   className="mt-0.5 block break-all text-sm text-mist transition-colors hover:text-accent"
@@ -206,7 +207,7 @@ const Contact = () => {
               type="checkbox"
               name="botcheck"
               className="hidden"
-              style={{ display: "none" }}
+              style={{ display: 'none' }}
               checked={formik.values.botcheck}
               onChange={formik.handleChange}
               tabIndex={-1}
@@ -214,7 +215,10 @@ const Contact = () => {
             />
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div>
-                <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-ink">
+                <label
+                  htmlFor="name"
+                  className="mb-1.5 block text-sm font-medium text-ink"
+                >
                   Name
                 </label>
                 <input
@@ -224,11 +228,15 @@ const Contact = () => {
                   value={formik.values.name}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  aria-invalid={Boolean(formik.touched.name && formik.errors.name)}
+                  aria-invalid={Boolean(
+                    formik.touched.name && formik.errors.name,
+                  )}
                   aria-describedby={
-                    formik.touched.name && formik.errors.name ? "name-error" : undefined
+                    formik.touched.name && formik.errors.name
+                      ? 'name-error'
+                      : undefined
                   }
-                  className={getFieldClass("name")}
+                  className={getFieldClass('name')}
                   placeholder="Your name"
                 />
                 {formik.touched.name && formik.errors.name && (
@@ -239,7 +247,10 @@ const Contact = () => {
               </div>
 
               <div>
-                <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-ink">
+                <label
+                  htmlFor="email"
+                  className="mb-1.5 block text-sm font-medium text-ink"
+                >
                   Email
                 </label>
                 <input
@@ -249,11 +260,15 @@ const Contact = () => {
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  aria-invalid={Boolean(formik.touched.email && formik.errors.email)}
+                  aria-invalid={Boolean(
+                    formik.touched.email && formik.errors.email,
+                  )}
                   aria-describedby={
-                    formik.touched.email && formik.errors.email ? "email-error" : undefined
+                    formik.touched.email && formik.errors.email
+                      ? 'email-error'
+                      : undefined
                   }
-                  className={getFieldClass("email")}
+                  className={getFieldClass('email')}
                   placeholder="you@example.com"
                 />
                 {formik.touched.email && formik.errors.email && (
@@ -265,7 +280,10 @@ const Contact = () => {
             </div>
 
             <div>
-              <label htmlFor="subject" className="mb-1.5 block text-sm font-medium text-ink">
+              <label
+                htmlFor="subject"
+                className="mb-1.5 block text-sm font-medium text-ink"
+              >
                 Subject
               </label>
               <input
@@ -275,11 +293,15 @@ const Contact = () => {
                 value={formik.values.subject}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                aria-invalid={Boolean(formik.touched.subject && formik.errors.subject)}
+                aria-invalid={Boolean(
+                  formik.touched.subject && formik.errors.subject,
+                )}
                 aria-describedby={
-                  formik.touched.subject && formik.errors.subject ? "subject-error" : undefined
+                  formik.touched.subject && formik.errors.subject
+                    ? 'subject-error'
+                    : undefined
                 }
-                className={getFieldClass("subject")}
+                className={getFieldClass('subject')}
                 placeholder="What's this about?"
               />
               {formik.touched.subject && formik.errors.subject && (
@@ -290,7 +312,10 @@ const Contact = () => {
             </div>
 
             <div>
-              <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-ink">
+              <label
+                htmlFor="message"
+                className="mb-1.5 block text-sm font-medium text-ink"
+              >
                 Message
               </label>
               <textarea
@@ -300,11 +325,15 @@ const Contact = () => {
                 value={formik.values.message}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                aria-invalid={Boolean(formik.touched.message && formik.errors.message)}
+                aria-invalid={Boolean(
+                  formik.touched.message && formik.errors.message,
+                )}
                 aria-describedby={
-                  formik.touched.message && formik.errors.message ? "message-error" : undefined
+                  formik.touched.message && formik.errors.message
+                    ? 'message-error'
+                    : undefined
                 }
-                className={getFieldClass("message", "resize-none")}
+                className={getFieldClass('message', 'resize-none')}
                 placeholder="Tell me a little about the project or role..."
               />
               {formik.touched.message && formik.errors.message && (
@@ -316,25 +345,25 @@ const Contact = () => {
 
             <button
               type="submit"
-              disabled={formik.isSubmitting || status === "sending"}
+              disabled={formik.isSubmitting || status === 'sending'}
               className="btn-primary w-full disabled:opacity-60"
             >
-              {status === "sending" || formik.isSubmitting
-                ? "Sending…"
-                : status === "sent"
-                ? "Message sent"
-                : "Send message"}
+              {status === 'sending' || formik.isSubmitting
+                ? 'Sending…'
+                : status === 'sent'
+                  ? 'Message sent'
+                  : 'Send message'}
               <FiSend size={15} aria-hidden="true" />
             </button>
 
-            {status === "sent" && (
+            {status === 'sent' && (
               <p role="status" className="text-sm text-accent">
                 Thanks — your message has been sent successfully! I&apos;ll get
                 back to you soon.
               </p>
             )}
 
-            {status === "error" && (
+            {status === 'error' && (
               <p role="alert" className="text-sm text-red-500">
                 {errorMessage}
               </p>

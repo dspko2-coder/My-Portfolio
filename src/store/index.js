@@ -1,4 +1,4 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import {
   persistStore,
   persistReducer,
@@ -8,18 +8,18 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import themeReducer from "./themeSlice";
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import themeReducer from './themeSlice';
 
 const rootReducer = combineReducers({ theme: themeReducer });
 
 // Persisted to localStorage under the key "persist:root".
 const persistConfig = {
-  key: "root",
+  key: 'root',
   version: 1,
   storage,
-  whitelist: ["theme"],
+  whitelist: ['theme'],
 };
 
 export const store = configureStore({

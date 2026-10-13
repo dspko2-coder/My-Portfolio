@@ -1,6 +1,6 @@
-import { FiDownload, FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
-import { profile } from "../data/portfolioData";
-import ProfilePicture from "../../asset/ProfilePicture.jpg";
+import { FiDownload, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
+import { profile } from '../data/portfolioData';
+import ProfilePicture from '../../asset/ProfilePicture.jpg';
 
 const SOCIAL_ICONS = {
   github: FiGithub,
@@ -9,7 +9,7 @@ const SOCIAL_ICONS = {
 
 const Hero = () => {
   const socialEntries = Object.entries(profile.social || {}).filter(
-    ([, href]) => Boolean(href)
+    ([, href]) => Boolean(href),
   );
 
   return (
@@ -75,7 +75,7 @@ const Hero = () => {
         {/* Right: headline card */}
         <div
           className="flex h-full min-w-0 animate-fadeUp flex-col gap-6"
-          style={{ animationDelay: "120ms" }}
+          style={{ animationDelay: '120ms' }}
         >
           <div className="card h-full min-w-0 px-8 py-10 sm:px-12 sm:py-12">
             <p className="font-body text-base text-mist">Hello there!</p>
@@ -84,20 +84,20 @@ const Hero = () => {
               className="my-6 sm:my-8 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl lg:text-[2.75rem] uppercase leading-[1.4]"
               style={{ lineHeight: 1.1 }}
             >
-              I&rsquo;m{" "}
+              I&rsquo;m{' '}
               <span
                 className="text-transparent"
-                style={{ WebkitTextStroke: "1.3px rgb(var(--text-primary))" }}
+                style={{ WebkitTextStroke: '1.3px rgb(var(--text-primary))' }}
               >
                 {profile.name}
               </span>
-              , a {profile.role} building{" "}
+              , a {profile.role} building{' '}
               <span
                 className="text-transparent"
-                style={{ WebkitTextStroke: "1.3px rgb(var(--text-primary))" }}
+                style={{ WebkitTextStroke: '1.3px rgb(var(--text-primary))' }}
               >
                 SMART, SCALABLE WEB SOLUTIONS
-              </span>{" "}
+              </span>{' '}
               WITH MODERN TECHNOLOGIES.
             </h2>
 

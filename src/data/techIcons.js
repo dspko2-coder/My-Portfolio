@@ -15,41 +15,53 @@ import {
   SiMongodb,
   SiGit,
   SiDocker,
+  SiJenkins,
+  SiKubernetes,
   SiFlutter,
   SiPostman,
   SiIntellijidea,
-} from "react-icons/si";
-import { FaJava } from "react-icons/fa";
-import { TbApi, TbCompass } from "react-icons/tb";
-import { VscVscode } from "react-icons/vsc";
+} from 'react-icons/si';
+import { FaJava, FaAws } from 'react-icons/fa';
+import {
+  TbApi,
+  TbCompass,
+  TbInfinity,
+  TbBrandReactNative,
+} from 'react-icons/tb';
+import { VscVscode } from 'react-icons/vsc';
 
-const TEXT = "rgb(var(--text-primary))";
-const ACCENT = "rgb(var(--accent))";
+const TEXT = 'rgb(var(--text-primary))';
+const ACCENT = 'rgb(var(--accent))';
 
 const ICON_MAP = {
-  Java: { Icon: FaJava, color: "#E76F00" },
-  JavaScript: { Icon: SiJavascript, color: "#F0DB4F" },
-  TypeScript: { Icon: SiTypescript, color: "#3178C6" },
-  HTML5: { Icon: SiHtml5, color: "#E34F26" },
-  CSS3: { Icon: SiCss, color: "#1572B6" },
-  "Tailwind CSS": { Icon: SiTailwindcss, color: "#38BDF8" },
-  "React.js": { Icon: SiReact, color: "#61DAFB" },
-  Redux: { Icon: SiRedux, color: "#764ABC" },
-  "Next.js": { Icon: SiNextdotjs, color: TEXT },
-  Angular: { Icon: SiAngular, color: "#DD0031" },
-  "Node.js": { Icon: SiNodedotjs, color: "#3C873A" },
-  "Express.js": { Icon: SiExpress, color: TEXT },
-  "Spring Boot": { Icon: SiSpringboot, color: "#6DB33F" },
-  "REST APIs": { Icon: TbApi, color: ACCENT },
-  MySQL: { Icon: SiMysql, color: "#4479A1" },
-  MongoDB: { Icon: SiMongodb, color: "#47A248" },
-  Git: { Icon: SiGit, color: "#F05032" },
-  Docker: { Icon: SiDocker, color: "#2496ED" },
-  Flutter: { Icon: SiFlutter, color: "#02569B" },
-  Postman: { Icon: SiPostman, color: "#FF6C37" },
-  "VS Code": { Icon: VscVscode, color: "#007ACC" },
-  "IntelliJ IDEA": { Icon: SiIntellijidea, color: "#FE315D" },
-  "MongoDB Compass": { Icon: TbCompass, color: "#47A248" },
+  Java: { Icon: FaJava, color: '#E76F00' },
+  JavaScript: { Icon: SiJavascript, color: '#F0DB4F' },
+  TypeScript: { Icon: SiTypescript, color: '#3178C6' },
+  HTML5: { Icon: SiHtml5, color: '#E34F26' },
+  CSS3: { Icon: SiCss, color: '#1572B6' },
+  'Tailwind CSS': { Icon: SiTailwindcss, color: '#38BDF8' },
+  'React.js': { Icon: SiReact, color: '#61DAFB' },
+  Redux: { Icon: SiRedux, color: '#764ABC' },
+  'Next.js': { Icon: SiNextdotjs, color: TEXT },
+  Angular: { Icon: SiAngular, color: '#DD0031' },
+  'Node.js': { Icon: SiNodedotjs, color: '#3C873A' },
+  'Express.js': { Icon: SiExpress, color: TEXT },
+  'Spring Boot': { Icon: SiSpringboot, color: '#6DB33F' },
+  'REST APIs': { Icon: TbApi, color: ACCENT },
+  MySQL: { Icon: SiMysql, color: '#4479A1' },
+  MongoDB: { Icon: SiMongodb, color: '#47A248' },
+  Git: { Icon: SiGit, color: '#F05032' },
+  Jenkins: { Icon: SiJenkins, color: '#D24939' },
+  Docker: { Icon: SiDocker, color: '#2496ED' },
+  Kubernetes: { Icon: SiKubernetes, color: '#326CE5' },
+  'CI/CD': { Icon: TbInfinity, color: '#0EA5E9' },
+  AWS: { Icon: FaAws, color: '#FF9900' },
+  'React Native': { Icon: TbBrandReactNative, color: '#61DAFB' },
+  Flutter: { Icon: SiFlutter, color: '#02569B' },
+  Postman: { Icon: SiPostman, color: '#FF6C37' },
+  'VS Code': { Icon: VscVscode, color: '#007ACC' },
+  'IntelliJ IDEA': { Icon: SiIntellijidea, color: '#FE315D' },
+  'MongoDB Compass': { Icon: TbCompass, color: '#47A248' },
 };
 
 export const getTechIcon = (name) =>

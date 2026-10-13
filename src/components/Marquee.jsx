@@ -1,15 +1,17 @@
 const Marquee = ({
   children,
-  gapClassName = "gap-10",
-  duration = "32s",
+  gapClassName = 'gap-10',
+  duration = '32s',
   reverse = false,
-  className = "",
+  className = '',
 }) => {
   return (
-    <div className={`group relative min-w-0 overflow-hidden mask-fade-x ${className}`}>
+    <div
+      className={`group relative min-w-0 overflow-hidden mask-fade-x ${className}`}
+    >
       <div
         className={`flex w-max items-center ${gapClassName} ${
-          reverse ? "animate-marqueeReverse" : "animate-marquee"
+          reverse ? 'animate-marqueeReverse' : 'animate-marquee'
         } group-hover:[animation-play-state:paused]`}
         style={{ animationDuration: duration }}
       >

@@ -1,14 +1,14 @@
-import { useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import ThemeSync from "./components/ThemeSync";
-import Loader from "./components/Loader";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import TechMarquee from "./components/TechMarquee";
-import About from "./components/About";
-import Projects from "./components/Projects";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import ThemeSync from './components/ThemeSync';
+import Loader from './components/Loader';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import TechMarquee from './components/TechMarquee';
+import About from './components/About';
+import Projects from './components/Projects';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
 
 const Home = () => (
   <>
@@ -25,19 +25,19 @@ const ScrollToTop = () => {
 
   useEffect(() => {
     if (hash) {
-      const element = document.getElementById(hash.replace("#", ""));
+      const element = document.getElementById(hash.replace('#', ''));
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        element.scrollIntoView({ behavior: 'smooth' });
         return;
       }
     }
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }, [pathname, hash]);
 
   return null;
 };
 
-const basename = import.meta.env.BASE_URL || "/";
+const basename = import.meta.env.BASE_URL || '/';
 
 const App = () => {
   return (

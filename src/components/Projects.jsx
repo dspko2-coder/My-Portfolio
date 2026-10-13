@@ -1,6 +1,6 @@
-import { FiGithub } from "react-icons/fi";
-import { projects } from "../data/portfolioData";
-import Reveal from "./Reveal";
+import { FiGithub } from 'react-icons/fi';
+import { projects } from '../data/portfolioData';
+import Reveal from './Reveal';
 
 const Projects = () => {
   return (

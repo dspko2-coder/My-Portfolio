@@ -19,17 +19,17 @@
       // one. Reads the value redux-persist stored under "persist:root".
       (function () {
         try {
-          var mode = "system";
-          var raw = localStorage.getItem("persist:root");
+          var mode = 'system';
+          var raw = localStorage.getItem('persist:root');
           if (raw) {
             var theme = JSON.parse(JSON.parse(raw).theme);
             if (theme && theme.mode) mode = theme.mode;
           }
           var isDark =
-            mode === "dark" ||
-            (mode !== "light" &&
-              window.matchMedia("(prefers-color-scheme: dark)").matches);
-          document.documentElement.classList.toggle("dark", isDark);
+            mode === 'dark' ||
+            (mode !== 'light' &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.classList.toggle('dark', isDark);
         } catch (e) {
           /* storage unavailable — fall back to the default styles */
         }

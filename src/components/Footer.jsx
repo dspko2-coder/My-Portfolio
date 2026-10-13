@@ -1,5 +1,5 @@
-import { FiGithub, FiLinkedin } from "react-icons/fi";
-import { profile } from "../data/portfolioData";
+import { FiGithub, FiLinkedin } from 'react-icons/fi';
+import { profile } from '../data/portfolioData';
 
 const SOCIAL_ICONS = {
   github: FiGithub,
@@ -9,7 +9,7 @@ const SOCIAL_ICONS = {
 const Footer = () => {
   const year = new Date().getFullYear();
   const socialEntries = Object.entries(profile.social || {}).filter(
-    ([, href]) => Boolean(href)
+    ([, href]) => Boolean(href),
   );
 
   return (
